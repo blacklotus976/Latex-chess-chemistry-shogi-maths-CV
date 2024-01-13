@@ -1,0 +1,305 @@
+\documentclass{article}
+% Useful packages
+\usepackage{forest}
+
+\usepackage{chessfss}
+\usepackage{tikz}
+\usepackage{xskak} % or \usepackage{skak}
+\usepackage[skaknew]{chessboard}
+\usepackage{skak}
+\usepackage{chessboard}
+\usepackage{chessboard,tikz}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{tabularray}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumitem}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{csquotes}
+
+\newcommand{\pawn}{{\symbol{"265F}}}
+\newcommand{\rook}{{\symbol{"265C}}}
+\newcommand{\bishop}{{\symbol{"265D}}}
+\newcommand{\knight}{{\symbol{"265E}}}
+\newcommand{\queen}{{\symbol{"265B}}}
+\newcommand{\king}{{\symbol{"265A}}}
+\usepackage{geometry}
+\usepackage[paperwidth=8.5in, paperheight=15in, margin=1in]{geometry}
+% Create plots
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+
+\usepackage[greek,english]{babel} % Language switching
+\usepackage{amsmath} % Mathematical symbols and Greek letters
+\usepackage{tocloft} % Table of contents customization
+\usepackage[english,german,greek]{babel}
+\setcounter{tocdepth}{5}
+%---------------------------------------------------------------
+\usepackage{adjustbox}
+
+%intro...
+%notes: tree should be made to fit in page manually by user, there's no automation
+
+
+%begin end adjust box
+%η φιλοσοφια ειναι δενδρα για τις κινησεις με σημαντικες επιλογεσ, και παρουσιαση γραμμων για την συνεχεια
+\tableofcontents
+
+
+
+
+ 
+
+    
+
+
+
+\forestset{end node/.style={draw,rectangle, fill=green!30,minimum width=1cm},
+           chess tree/.style={for tree={align=center,edge={-latex, line width=2pt},s sep=1cm,l sep=0.5cm,
+           where n children=0{end node, edge={-}}{delay={draw, circle,minimum size=1cm, 
+           if={iseven(level())}{fill=white}{fill=black!20}}}}},
+           move/.style={if n=1{edge label={node[midway,left]{#1}}}
+                              {edge label={node [midway, right]{#1}}}}}
+\begin{document}
+
+\section{Intro}
+The Catalan Opening is a chess opening where White plays d4 and c4, fianchettoes the white bishop on g2, and aims for long-term positional pressure in the center and on Black's queenside. It combines the space-gaining moves d4 and c4 with g3, putting pressure mainly on the queenside while hoping to keep the white king safe. The strategic goal of the Catalan is to deal with disadvantageous features without too much awkwardness, aiming for a subtle positional advantage. It's not the easiest opening for either side to play, requiring a significant amount of finesse. The Catalan is suitable for players who enjoy positional chess and can lead to small and nagging edges with very technical endgames. Some notable experts in the Catalan Opening are Vladimir Kramnik, Ding Liren, Anish Giri, Boris Gelfand, and Daniil Dubov and Magnus Carlsen.\\
+
+Personal Note:\\
+I came to the creation of this notebook, hoping to get better understanding (if not master) the Catalan opening. I enjoy more quick complicated -full of tacticals- games, but the safe approach in a tournament, especially if you are new, is a long term positional game. Catalan is a great choice of white, because it allows him to go on without immediate confrontation. It won't be an all out game, or a great showdown, some may call it boring. Best case scenario black goes into the open Catalan, where white can apply more pressure with his "catalan" bishop, and black will have a hard time -though the game is equal. The finesse mentioned above goes for the endgame. Please be aware that any tiny pawn movement or trade will have great affect on the endgame. Having said all these, please enjoy and let the notebook teach the reader a thing or two.\\
+DISCLAIMER: May the reader choose the opening if he wants to avoid direct confrontation and can be described as more of a positional player than tactical. Under no circumstances is implied that Catalan needs less thought or time. It is a hard opening.
+\newpage
+\section{Open Catalan}
+    
+    \subsection{Starting Position}
+    
+         \begin{center}
+            
+        
+            \chessboard[
+            clearboard,
+            setfen=rnbqkb1r/ppp2ppp/4pn2/3p4/2PP4/6P1/PP2PPBP/RNBQK1NR b,
+            addpgf={\tikz[overlay]\draw[red,line width=0.1em,->](f8)--(b4);},
+            addpgf={\tikz[overlay]\draw[red,line width=0.1em,->](c1)--(d2);},
+            addpgf={\tikz[overlay]\draw[red,line width=0.1em,->](g1)--(f3);},
+            addpgf={\tikz[overlay]\draw[red,line width=0.1em,->](e8)--(g8);},
+            addpgf={\tikz[overlay]\draw[red,line width=0.1em,->](h8)--(f8);},
+            linewidth=0.2pt,
+            color=red,
+            markmoves={e3-e4, d5-d6}, 
+            markstyle=circle,
+            markfield={b4}
+            ]
+        \end{center}
+    \subsection{Transpositions Tree}
+    
+
+       
+        
+        
+        \newpage
+      
+            \begin{forest}
+              chess tree
+              [,circle,draw,content={d4}
+                  [,circle,draw, content={d5}
+                      [,circle,draw, content={c4}
+                          [,circle,draw, content={e6}
+                            [,circle,draw, content={g3}
+                                [,circle,draw, content={\knight f6}
+                                    [,circle,draw, content={\bishop g2}
+                                        [{-3}, content={+0.2}]
+                                    ]
+                                ]
+                            ]
+                            [,circle,draw, content={\knight f3}
+                                [,circle,draw, content={\knight f6}
+                                    [,circle,draw, content={g3}
+                                        [,circle,draw, content={\bishop b4+}
+                                            [,circle,draw, content={\bishop d2}
+                                                [{-3}, content={+0.2}]
+                                            ]
+                                            [,circle,draw, content={\knight c3}
+                                                [{-3}, content={0.0}]
+                                            ]
+                                        ]
+                                        [,circle,draw, content={dxc4}
+                                                [{-3}, content={0.2/ Main Line}]
+                                        ]
+                                        
+                                    ]
+                                ]
+                            ]
+                        ]
+                      ]
+                  ] 
+                  [,circle,draw, content={e6}
+                    [,circle,draw, content={\knight f3}
+                        [,circle,draw, content={d5}
+                            [,circle,draw, content={c4}
+                                [,circle,draw, content={g3}
+                                    [{-2}, content={+0.1}]
+                                ]
+                            ]
+                        ]
+                    ]
+                    [,circle,draw, content={e4}
+                        [{-2}, content={+0.3/ french defence}]
+                    ]
+                    
+                      
+                  ]
+                  [,circle,draw, content={\knight f6}
+                    [,circle,draw, content={c4}
+                        [,circle,draw, content={e6}
+                            [,circle,draw, content={\knight f3}
+                                [,circle,draw, content={d5}
+                                    [{-2}, content={+0.1/ g3 next}]
+                                ]
+                                [,circle,draw, content={\bishop b4+}
+                                    [,circle,draw, content={\knight c3}
+                                        [{-2}, content={+0.4}]
+                                    ]
+                                ]
+                            ]
+                        ]
+                            
+                    
+                  ]
+              ]
+            ]
+              
+            \end{forest}
+
+
+    So, in this part, we are gonna analyse the game continuing from where we left. Firstly the main line. Then comes the exploration of  the most common response for black with 4. ..., Bb4+ and the choice of blocking the check with \bishop d2 or \knight c3. The difference in the lines where \bishop b4+ comes with \knight  on f3 or \bishop  on g2 will be ignored, since it's the same. \\
+
+    The reader shall encounter side lines like:\\ 
+     5. \bishop d2, a5,  4. ..., \knight c6, 4. ...,c6 \\
+     and the main line in open catalan with  4. ...,dxc4.
+     
+    \subsection{Main Line/ 4)...,dxc4}
+    \textbf{Main Line: 1. d4,d5 2. c4,e6 3. Nf3,Nf6 4. g3,dxc4  5. Bg2,b5 6. a4 or Ne5}\\
+    Good thing in the open Catalan is that the white diagonal will always be opened, and black will have trouble defending. White can threaten the Rook on a8 anytime he wants, and many variants will be explored.\\
+
+    \begin{center}
+            
+        
+            \chessboard[
+            clearboard,
+            setfen=rnbqkb1r/p1p2ppp/4pn2/1p6/2pP4/5NP1/PP2PPBP/RNBQK2R w,
+            linewidth=0.2pt,
+            color=red,
+            markmoves={e3-e4, d5-d6}, 
+            markstyle=circle,
+            markfield={}
+            ]
+    \end{center}
+
+    \textbf{the trees below explores continuations of the top moves (a4 and Ne5)}\\
+
+    \newpage
+            \textbf{6.a4 MoveTree}
+            \begin{forest}
+              chess tree
+              [,circle,draw,content={a4}
+                [,circle,draw,content={\bishop b7}
+                    [,circle,draw,content={axb5}
+                        [,circle,draw,content={a6}
+                            [{-3}, content={+0.9}]
+                        ]
+                    ]
+                ]
+                [,circle,draw,content={\bishop b4+}
+                    [,circle,draw,content={\bishop d2}
+                        [,circle,draw,content={\bishop e7}
+                        ]
+                        [,circle,draw,content={\bishop xd2+}
+                            [,circle,draw,content={\knight fxd2}
+                                [{-3}, content={+1.3}]
+                            ]
+                            [,circle,draw,content={\knight bxd2}
+                                [{-3}, content={-0.1}]
+                            ]
+                            [,circle,draw,content={\queen xd2}
+                                [{-3}, content={+0.6}]
+                            ]
+                        ]
+                    ]
+                ]
+                [,circle,draw,content={bxa4}
+                    [,circle,draw,content={\knight e5}
+                        [,circle,draw,content={c6}
+                            [{-3}, content={+0.9}]
+                        ]
+                    ]
+                ]
+                [,circle,draw,content={a6}
+                    [,circle,draw,content={b3}
+                        [,circle,draw,content={\bishop b4+}
+                            [,circle,draw,content={\bishop d2}
+                                [,circle,draw,content={\bishop xd2+}
+                                    [,circle,draw,content={\queen xd2}
+                                        [{-3}, content={0.0}]
+                                    ]
+                                    [,circle,draw,content={\knight bxd2}
+                                        [{-3}, content={-0.8}]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                    [,circle,draw,content={\knight e5}
+                         [,circle,draw,content={\bishop b4+}
+                            [,circle,draw,content={\bishop d2}
+                                [,circle,draw,content={\bishop xd2+}
+                                    [,circle,draw,content={\queen xd2}
+                                        [,circle,draw,content={\knight d5}
+                                            [{-3}, content={+0.7}]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                 
+                    [,circle,draw,content={0-0}
+                        [,circle,draw,content={\bishop b7}
+                            [{-3}, content={-0.22}]
+                        ]
+                    ]
+                ]
+                
+                
+              ]
+            \end{forest}
+            \\
+            \textbf{The analysis of the lines follows, informing the reader about the strategy and follow ups}\\
+            \paragraph{Bb7}
+            Black gives back the pawn he earlier grabbed and tries to develop his white squared bishop. White takes, black goes a6 since he shouldnt let white build up too much on the queen side -although temporarily ignoring it with moves Be7 to castle next move is also playable. Black must be careful of losing his c4 pawn and white can defend wit \knight c3. So the main line is a6, bxa6, \knight xa6. the file is opened, so the diagonal, so accurate play is demanded. Usually black advances to move the knight, trade rooks, and places his queen on a8. So now the diagonal is protected and the game is kinda equal. In the mean time, white has developed his white squared bishop on g5, pinning the knight to the queen, and after \queen xa8 white usually trades his bishop for the knight and the doubled pawn structure. Even if whites blacks squared bishop takes before the rook trade, black can't but take with the pawn since he wants the queen to protect the bishop in case of a surprising knight move. Queens will be trades and white will be one pawn up, but maintaining the advantage is difficult. Stockfish 16 Lite with depth=20 gives +0.17 for white. Though for human players it's easy to draw as black and to lose, depending on the slightest inaccuracy. All in all a chill line for white, not that much competitive. Just white calling the shots and being a pawn up. I personally wouldn't worry going in this line, since I would always be the one applying pressure, and have a relaxing time playing.\\
+            \textbf{Line: 6. a4,\bishop b7 7. axb5,a6 8. bxa6,\knight xa6 9. \bishop g5,\knight b4 10. \bishop xf6,gxf6 -else: Qxf6 white trades rooks and holds the advantage (+0.5) of a discovered attack on the white diagonal- 11. \rook xa8,\queen xa8 12. 0-0,\bishop e7 13. \queen c1,0-0 14. \knight bd2,\rook d8 15. \knight xc4, \queen a7 16. \knight d2 -covering the other knight (in case of black plays \bishop xf3) so the d4 pawn won't fall- ... c5 17. dxc5,\bishop a6 18. \queen c3, \queen xc5 19. \queen xc5,\bishop xc5 20. \rook c1 -planning e2 in the future}\\
+            Else:\\
+            \textbf{9. 0-0 -leads to the same exact game (black plays \knight b4), but this time black doesn't have the doubled f pawns, also white has the option of going \rook a4 or a3, trying to provoke an exchange leaving him with a passed pawn. Stockfish 16 Lite with depth=20 gives +0.17 for white.}\\
+             \vspace{0.5cm}
+             \paragraph{Bb4+}\\
+    \subsection{Side Line/ 4)...,Nc6}
+    \subsection{Side Line/ 4)...,c6}
+    \subsection{Side Line/ 5)...,a5}
+
+\section{Closed Catalan}
+    \subsection{Starting Position}
+    \subsection{Transpositions Tree}
+    \subsection{Main Line}
+\section{Neo Catalan -English}
+    \subsection{Starting Position}
+    \subsection{Transpositions Tree}
+    \subsection{Main Line}
+
+
+
+\end{document}
